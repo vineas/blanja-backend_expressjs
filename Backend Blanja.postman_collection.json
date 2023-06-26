@@ -12,26 +12,39 @@
 				{
 					"name": "list product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsdmllbmFzQHlhbmRpa2EuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY4NzcxMzI3MywiZXhwIjoxNjg3Nzk5NjczfQ.hZuI5cxhnhBY8Aa3SK3wF9L9b2dH5P_-HZHOKJ6o3b8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/products?sortby=stock&sort=desc",
+							"raw": "http://localhost:4000/products/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
-								"products"
+								"products",
+								""
 							],
 							"query": [
 								{
 									"key": "sortby",
-									"value": "stock"
+									"value": "stock",
+									"disabled": true
 								},
 								{
 									"key": "sort",
-									"value": "desc"
+									"value": "desc",
+									"disabled": true
 								},
 								{
 									"key": "page",
@@ -40,7 +53,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "5",
+									"value": "2",
 									"disabled": true
 								}
 							]
@@ -71,16 +84,52 @@
 				{
 					"name": "create product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsdmllbmFzQHZpbmVhcy5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2ODc3NDE0NTgsImV4cCI6MTY4Nzc0NTA1OCwiaXNzIjoidG9rb2t1In0.0zfy3W-PAyafCd7xKS4BqiOVos_nlQTkO3n55DANjhQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Jersey manchester city\",\r\n    \"price\": 150000,\r\n    \"stock\": 30,\r\n    \"image\": \"https://us03-imgcdn.ymcart.com/67231/2023/04/26/c/9/c98fd31443c54edb.jpg\",\r\n    \"rating_product\": \"4\",\r\n    \"nama_toko\": \"Puma\",\r\n    \"category_id\": 2\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Jersey Manchester United",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "150000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "14",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/vineas-lepi/Downloads/foto/mu-jersey.jpg"
+								},
+								{
+									"key": "rating_product",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "nama_toko",
+									"value": "Adidas",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:4000/products",
@@ -99,16 +148,52 @@
 				{
 					"name": "update product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsdmllbmFzQHlhbmRpa2EuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY4NzcxNjg4MCwiZXhwIjoxNjg3NzIwNDgwLCJpc3MiOiJ0b2tva3UifQ.ir6z18qgUWroQx1iE9a1-xY6rDdK2tvyi4bnQiQ8vBM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"kaos oversized hijau\",\r\n    \"price\": 123000,\r\n    \"stock\": 21,\r\n    \"image\": \"https://asset-a.grid.id/crop/0x0:0x0/700x0/photo/2021/05/19/178958434_799185671008669_689190-20210519023858.jpg\",\r\n    \"rating_product\": \"4\",\r\n    \"merk\": \"Human Greatness\",\r\n    \"category_id\": 2\r\n}\r\n\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "manchester united",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "150000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/vineas-lepi/Downloads/foto/mu-jersey.jpg"
+								},
+								{
+									"key": "rating_product",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "nama_toko",
+									"value": "adidas",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:4000/products/3",
@@ -324,139 +409,6 @@
 			]
 		},
 		{
-			"name": "customer",
-			"item": [
-				{
-					"name": "Customer List",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"customer"
-							],
-							"query": [
-								{
-									"key": "sortby",
-									"value": "name",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "asc",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customer Detail List",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customer Create",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"name\": \"Layla Canggung\",\r\n            \"email\": \"layla@gmail.com\",\r\n            \"phone_number\": \"081233871871\",\r\n            \"gender\": \"P\",\r\n            \"dateofbirth\": \"2001-01-13\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:4000/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customer Update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"name\": \"Layla Gak Canggung\",\r\n            \"email\": \"layla@gmail.com\",\r\n            \"phone_number\": \"081233871871\",\r\n            \"gender\": \"P\",\r\n            \"dateofbirth\": \"2001-01-13\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:4000/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customer Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "orders",
 			"item": [
 				{
@@ -572,6 +524,128 @@
 					"request": {
 						"method": "DELETE",
 						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"mohamed salah\",\r\n    \"email\": \"salah@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"role\": \"seller\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"salah@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsdmllbmFzQHlhbmRpa2EuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY4NzcxNzg3NywiZXhwIjoxNjg3NzIxNDc3LCJpc3MiOiJ0b2tva3UifQ.IxSElcz7zYgDb4-dXhIRF12DJ6vdCZ9smIGXt4X1CSc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/users/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"RefreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsdmllbmFzQHlhbmRpa2EuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY4Nzc0NjExOSwiZXhwIjoxNjg3NzQ5NzE5LCJpc3MiOiJ0b2tva3UifQ.N5mTh_K2lJOPEy6n8Ysh83NURMai9NmsjFnfhOH-dZA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/refreshToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"refreshToken"
+							]
+						}
 					},
 					"response": []
 				}

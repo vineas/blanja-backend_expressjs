@@ -6,16 +6,16 @@ name varchar(255) not null
 
 
 create table product(
-id int not null primary key,
+id serial primary key,
 name varchar(255) not null,
 price int not null,
 stock int not null,
-image varchar(255) not null,
+image varchar not null,
 rating_product rating,
-nama_toko varchar(255) not null,
-category_id int not null,
-FOREIGN KEY (category_id) REFERENCES category(id)
+nama_toko varchar(255) not null
 );
+-- category_id int not null,
+-- FOREIGN KEY (category_id) REFERENCES category(id)
 
 
 
@@ -61,7 +61,7 @@ address_order text not null,
 quantity int not null,
 shipping varchar(255) not null,
 total_price int not null,
-id_product int not null,
+id_product serial not null,
 id_customer int not null,
 FOREIGN KEY (id_product) REFERENCES product(id),
 FOREIGN KEY (id_customer) REFERENCES customer(id)
@@ -114,3 +114,12 @@ dateofBirth ) values (
 '2000-09-14'
 );
 
+
+
+CREATE TABLE users(
+    id VARCHAR PRIMARY KEY,
+    email VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    fullname VARCHAR,
+    role VARCHAR
+);

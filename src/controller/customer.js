@@ -6,8 +6,6 @@ let {
     deleteCustomer,
     countData,
     findId
-    // searchProduct,
-    // findName
   } = require("../model/customer");
   const commonHelper = require("../helper/common");
   

@@ -9,19 +9,18 @@ const selectProduct = (id) => {
 }
 
 const insertProduct = (data) => {
-    const { id,name, price, stock, image, rating_product, merk, category_id} = data;
-    return Pool.query(`INSERT INTO product(id,name,price,stock, image, rating_product, merk, category_id) VALUES
-    (${id},'${name}',${price},${stock},'${image}', '${rating_product}', '${merk}', ${category_id})`);
+    const { id,name, price, stock, image, rating_product, nama_toko} = data;
+    return Pool.query(`INSERT INTO product(id,name,price,stock,image,rating_product,nama_toko) VALUES
+    (${id},'${name}',${price},${stock},'${image}','${rating_product}', '${nama_toko}')`);
 }
 
 const updateProduct = (data) => {
-    const { id, name, price, stock, image, rating_product, merk, category_id} = data;
-    return Pool.query(`UPDATE product SET name='${name}', stock=${stock}, price=${price}, image ='${image}', rating_product='${rating_product}', merk ='${merk}', category_id = ${category_id} WHERE id=${id}`);
+    const { id, name, price, stock, image, rating_product, nama_toko} = data;
+    return Pool.query(`UPDATE product SET name='${name}', price=${price}, stock=${stock}, image ='${image}', rating_product='${rating_product}', nama_toko ='${nama_toko}' WHERE id=${id}`);
 }
 
 const deleteProduct = (id) => {
         return Pool.query(`DELETE FROM product WHERE id=${id}`);
-
 }
 
 const countData = () =>{
@@ -53,5 +52,53 @@ module.exports = {
     countData,
     findId,
     searchProduct
-    // findName
 }
+
+
+
+
+// const Pool = require('../config/db')
+// const selectAll = ({limit,offset,sort,sortby}) => {
+//   return Pool.query(`SELECT * FROM products ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`)
+// }
+// const select = (id) => {
+//   return Pool.query(`SELECT * FROM products WHERE id=${id}`)
+// }
+// const insert = (data) => {
+//   const { id,name,stock,price,photo,description } = data
+  // return Pool.query(`INSERT INTO products(id,name,stock,price,photo,description) VALUES
+  // (${id},'${name}',${stock},${price},'${photo}','${description}')`)
+// }
+// const update = (data) => {
+//   const { id,name,stock,price,photo,description } = data
+//   return Pool.query(`UPDATE products SET name='${name}', stock=${stock}, price=${price} ,photo='${photo}' ,description='${description}' WHERE id='${id}'`)
+// }
+// const deleteData = (id) => {
+//   return Pool.query(`DELETE FROM products WHERE id=${id}`)
+// }
+
+// const countData = () =>{
+//   return Pool.query('SELECT COUNT(*) FROM products')
+// }
+
+// const findId =(id)=>{
+//   return  new Promise ((resolve,reject)=> 
+//   Pool.query(`SELECT id FROM products WHERE id=${id}`,(error,result)=>{
+//     if(!error){
+//       resolve(result)
+//     }else{
+//       reject(error)
+//     }
+//   })
+//   )
+// }
+
+// module.exports = {
+//   selectAll,
+//   select,
+//   insert,
+//   update,
+//   deleteData,
+//   countData,
+//   findId
+// }
