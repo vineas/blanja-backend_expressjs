@@ -9,16 +9,17 @@ let {
   searchProduct,
 } = require("../model/products");
 const commonHelper = require("../helper/common");
-const client = require("../config/redis");
+// const client = require("../config/redis");
+const cloudinary = require('../middleware/cloudinary');
 
 let productController = {
   getAllProduct: async (req, res) => {
     try {
       const page = Number(req.query.page) || 1;
-      const limit = Number(req.query.limit) || 5;
+      const limit = Number(req.query.limit) || 10;
       const offset = (page - 1) * limit;
-      const sortby = req.query.sortby || "name";
-      const sort = req.query.sort || "ASC";
+      const sortby = req.query.sortby || 'id';
+      const sort = req.query.sort || "DESC";
       let result = await selectAllProduct({ limit, offset, sortby, sort });
       const {
         rows: [count],
@@ -61,7 +62,7 @@ let productController = {
     }
     selectProduct(id)
       .then((result) => {
-        client.setEx(`product/${id}`, 60 * 60, JSON.stringify(result.rows));
+        // client.setEx(`product/${id}`, 60 * 60, JSON.stringify(result.rows));
         commonHelper.response(
           res,
           result.rows,
@@ -75,8 +76,9 @@ let productController = {
   createProduct: async (req, res) => {
     const PORT = process.env.PORT || 4000
     const DB_HOST = process.env.DB_HOST || 'localhost'
-    const image = req.file.filename;
-    const { name, price, stock, rating_product, nama_toko } =
+    const result = await cloudinary.uploader.upload(req.file.path)
+    const image = result.secure_url;
+    const { name, price, stock, rating_product, nama_toko, description_product } =
     req.body;
     const {
       rows: [count],
@@ -87,9 +89,10 @@ let productController = {
       name,
       price,
       stock,
-      image: `http://${DB_HOST}:${PORT}/img/${image}`,
+      image,
       rating_product,
-      nama_toko      
+      nama_toko,
+      description_product   
     };
     console.log(data);
     insertProduct(data)
@@ -105,8 +108,9 @@ let productController = {
       const PORT = process.env.PORT || 4000;
       const DB_HOST = process.env.DB_HOST || "localhost";
       const id = Number(req.params.id);
-      const image = req.file.filename;
-      const { name, price,  stock, rating_product, nama_toko } =
+      const result = await cloudinary.uploader.upload(req.file.path)
+      const image = result.secure_url;
+      const { name, price,  stock, rating_product, nama_toko, description_product } =
         req.body;
       const { rowCount } = await findId(id);
       if (!rowCount) {
@@ -117,9 +121,10 @@ let productController = {
         name,
         price,
         stock,
-        image: `http://${DB_HOST}:${PORT}/img/${image}`,
+        image,
         rating_product,
-        nama_toko
+        nama_toko,
+        description_product
       };
       updateProduct(data)
         .then((result) =>

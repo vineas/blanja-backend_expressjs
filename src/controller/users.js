@@ -7,7 +7,7 @@ const authHelper = require("../helper/auth");
 
 let userController = {
 
-  getAllCustomer: async (req, res) => {
+  getAllUser: async (req, res) => {
     try {
       const result = await selectAllUsers();
       commonHelper.response(res, result.rows, 200, "get data success");

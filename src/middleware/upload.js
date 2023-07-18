@@ -1,30 +1,42 @@
-const multer = require("multer");
-const createError = require('http-errors')
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "src/upload");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ".png");
-  },
-});
-
-const upload = multer({ 
-  storage: storage, 
-  limits: {fileSize: 1024 * 1024 * 2}, 
-  fileFilter: function (req, file, cb) {
-    const formatImage = ['jpg', 'jpeg', 'png']
-    const Extension = file.mimetype.split('/')[1]
-    console.log(Extension)
-
-    if (formatImage.includes(Extension)) {
-      return cb(null, true)
-    } else {
-      return cb(new createError(400, 'Only for jpg, jpeg or png file!'), false)
+const multer = require('multer');
+// const { failed } = require('../helper/common');
+// manajemen file
+const multerUpload = multer({
+  storage: multer.diskStorage({}),
+  fileFilter: (req, file, cb) => {
+    const fileSize = parseInt(req.headers['content-length']);
+    const maxSize = 2 * 1024 * 1024;
+    if (fileSize > maxSize) {
+      const error = {
+        message: 'File size exceeds 2 MB',
+      };
+      return cb(error, false);
     }
-  }
+    if (
+      file.mimetype === 'image/jpeg' ||
+      file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg'
+    ) {
+      cb(null, true);
+    } else {
+      const error = {
+        message: 'file must be jpeg,jpg or png',
+      };
+      cb(error, false);
+    }
+  },
 });
+
+// middleware
+const upload = (req, res, next) => {
+  const multerSingle = multerUpload.single('image');
+  multerSingle(req, res, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      next();
+    }
+  });
+};
 
 module.exports = upload;

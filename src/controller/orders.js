@@ -36,13 +36,12 @@ let {
   
     createOrders: async (req, res) => {
       const {
-        date,
         address_order,
         quantity,
         shipping,
         total_price,
         id_product,
-        id_customer,
+        id_users,
       } = req.body;
       const {
         rows: [count],
@@ -50,13 +49,12 @@ let {
       const id = Number(count.count) + 1;
       const data = {
         id,
-        date,
         address_order,
         quantity,
         shipping,
         total_price,
         id_product,
-        id_customer,
+        id_users,
       };
       insertOrders(data)
         .then((result) =>

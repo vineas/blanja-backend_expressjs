@@ -1,7 +1,7 @@
 const express = require("express");
 require('dotenv').config()
 const app = express();
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const cors = require('cors')
 const createError = require('http-errors')
 const helmet = require('helmet');
@@ -10,12 +10,12 @@ const mainRouter = require('./src/routes/index')
 const port = 4000;
 
 app.use(express.json());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(cors());
 app.use(helmet());
 app.use(xss())
 app.use('/', mainRouter);
-app.use('/img', express.static('src/upload'))
+app.use('/img', express.static('upload'))
 app.all('*', (req, res, next) => {
   next(new createError.NotFound())
 })

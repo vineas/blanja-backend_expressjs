@@ -2,6 +2,7 @@ const Pool = require('../config/db')
 
 const selectAllProduct = ({limit,offset,sort,sortby}) => {
     return Pool.query(`SELECT * FROM product ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`)
+    // return Pool.query(`SELECT * FROM product ORDER BY ${sortby} ${sort} OFFSET ${offset}`)
 }
 
 const selectProduct = (id) => {
@@ -9,14 +10,14 @@ const selectProduct = (id) => {
 }
 
 const insertProduct = (data) => {
-    const { id,name, price, stock, image, rating_product, nama_toko} = data;
-    return Pool.query(`INSERT INTO product(id,name,price,stock,image,rating_product,nama_toko) VALUES
-    (${id},'${name}',${price},${stock},'${image}','${rating_product}', '${nama_toko}')`);
+    const { id,name, price, stock, image, rating_product, nama_toko, description_product} = data;
+    return Pool.query(`INSERT INTO product(id,name,price,stock,image,rating_product,nama_toko, description_product) VALUES
+    (${id},'${name}',${price},${stock},'${image}','${rating_product}', '${nama_toko}', '${description_product}')`);
 }
 
 const updateProduct = (data) => {
-    const { id, name, price, stock, image, rating_product, nama_toko} = data;
-    return Pool.query(`UPDATE product SET name='${name}', price=${price}, stock=${stock}, image ='${image}', rating_product='${rating_product}', nama_toko ='${nama_toko}' WHERE id=${id}`);
+    const { id, name, price, stock, image, rating_product, nama_toko, description_product} = data;
+    return Pool.query(`UPDATE product SET name='${name}', price=${price}, stock=${stock}, image ='${image}', rating_product='${rating_product}', nama_toko ='${nama_toko}', description_product='${description_product}' WHERE id=${id}`);
 }
 
 const deleteProduct = (id) => {

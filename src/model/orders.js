@@ -6,9 +6,9 @@ const selectAllOrders = (sortby, sort) => {
 
 const selectOrders = (id) => {
   return Pool.query(
-    `SELECT orders.*, product.name AS nama_product, customer.name AS pembeli 
+    `SELECT orders.*, product.name AS nama_product, users.fullname AS pembeli 
     FROM orders join product ON orders.id_product = product.id
-    JOIN customer ON orders.id_customer = customer.id WHERE orders.id = ${id}`
+    JOIN users ON orders.id_users = users.id WHERE orders.id = ${id}`
   );
 };
 
@@ -17,16 +17,15 @@ const selectOrders = (id) => {
 // }
 
 const insertOrders = (data) => {
-  const { id, date, address_order, quantity, shipping, total_price, id_product, id_customer} = data;
-  return Pool.query(`INSERT INTO orders(id ,
-        date,
+  const { id, address_order, quantity, shipping, total_price, id_product, id_users} = data;
+  return Pool.query(`INSERT INTO orders(id,
         address_order ,
         quantity ,
         shipping ,
         total_price,
-        id_product ,
-        id_customer) VALUES
-    (${id}, '${date}', '${address_order}', ${quantity}, '${shipping}', ${total_price}, ${id_product}, ${id_customer})`);
+        id_product,
+        id_users) VALUES
+    (${id}, '${address_order}', ${quantity}, '${shipping}', ${total_price}, ${id_product}, '${id_users}')`);
 };
 
 const updateOrders = (data) => {
