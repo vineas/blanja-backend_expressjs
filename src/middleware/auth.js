@@ -25,21 +25,23 @@ const protect =(req,res,next)=>{
   }
 };
 
-const validateRole = (req, res, next) => {
-  try {
-    const role = req.payload.role
-    if (role === 'seller') {
-        next();
-      } else {
-        throw {
-          statusCode : 403,
-          message : "Only seller can post, update, and delete a product"
-        }
-      }
-  } catch (error) {
-    console.log(error)
-    next(new createError(error.statusCode, error));
-  }
-}
+// const validateRole = (req, res, next) => {
+//   try {
+//     const role = req.payload.role
+//     if (role === 'seller') {
+//         next();
+//       } else {
+//         throw {
+//           statusCode : 403,
+//           message : "Only seller can post, update, and delete a product"
+//         }
+//       }
+//   } catch (error) {
+//     console.log(error)
+//     next(new createError(error.statusCode, error));
+//   }
+// }
 
-module.exports = {protect, validateRole}
+module.exports = {protect, 
+  // validateRole
+}

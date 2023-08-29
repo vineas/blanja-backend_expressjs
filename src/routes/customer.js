@@ -1,12 +1,14 @@
-const express = require('express');
-const router  = express.Router();
-const customerController = require('../controller/customer');
-
+const express = require("express");
+const router = express.Router();
+const uploadCustomer = require("../middleware/uploadCustomer");
+const customerController = require("../controller/customer");
 router
-  .get("/", customerController.getAllCustomer)
-  .get("/:id", customerController.getDetailCustomer)
-  .post("/", customerController.createCustomer)
-  .put("/:id", customerController.updateCustomer)
-  .delete("/:id", customerController.deleteCustomer)
-
+  .post("/register", uploadCustomer, customerController.registerCustomer)
+  .post("/login", customerController.loginCustomer)
+  .get("/profile/:id", customerController.getSelectCustomer)
+  .get("/profile", customerController.getAllCustomer)
+  .put("/profile/:id", uploadCustomer, customerController.editCustomer)
+  .put("/password/:id", uploadCustomer, customerController.updatePasswordCustomer)
+  .delete("/profile/:id", customerController.deleteCustomer);
 module.exports = router;
+  

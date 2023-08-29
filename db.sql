@@ -1,22 +1,58 @@
-create table category(
-id int not null primary key,
-image varchar(255) not null,
-name varchar(255) not null
+CREATE TABLE customer(
+    customer_id VARCHAR PRIMARY KEY,
+    customer_name VARCHAR NOT NULL,
+    customer_email VARCHAR NOT NULL,
+    customer_password VARCHAR NOT NULL,
+    customer_confirmpassword VARCHAR NOT NULL,
+    customer_phone VARCHAR,
+    customer_gender VARCHAR,
+    customer_birth VARCHAR,
+    customer_image VARCHAR
+)
+
+create table seller(
+    seller_id VARCHAR PRIMARY KEY,
+    seller_name VARCHAR NOT NULL,
+    seller_email VARCHAR NOT NULL,
+    seller_phone VARCHAR NOT NULL,
+    seller_storename VARCHAR NOT NULL,
+    seller_confirmpassword VARCHAR NOT NULL,
+    seller_password VARCHAR NOT NULL,
+    seller_description TEXT,
+    seller_image VARCHAR
+)
+
+CREATE TABLE category(
+category_id VARCHAR not null primary key,
+category_name VARCHAR not null,
+product_id VARCHAR primary key,
+);
+
+CREATE TABLE orders(
+order_id int primary key not null,
+order_address text not null,
+order_quantity int not null,
+order_shipping varchar(255) not null,
+total_price int not null,
+product_id VARCHAR,
+customer_id VARCHAR
 );
 
 
-create table product(
-id int primary key,
-name varchar(255) not null,
-price int not null,
-stock int not null,
-image varchar not null,
-rating_product rating,
-nama_toko varchar(255) not null,
-description_product TEXT not null
+CREATE TABLE product(
+product_id VARCHAR primary key,
+product_name VARCHAR not null,
+product_price INT not null,
+product_stock INT not null,
+product_image VARCHAR not null,
+description_product TEXT not null,
+category_id VARCHAR,
+seller_id VARCHAR 
 );
+-- nama_toko VARCHAR not null,
 -- category_id int not null,
 -- FOREIGN KEY (category_id) REFERENCES category(id)
+
 
 
 

@@ -1,71 +1,114 @@
-const Pool = require('../config/db')
+const Pool = require("../config/db");
 
-const selectAllCustomer = (sortby, sort) => {
-    return Pool.query(`SELECT * FROM customer ORDER BY ${sortby} ${sort}`)
-}
+//GET ALL customers
+const selectAllCustomers = ({ limit, offset, sort, sortby }) => {
+  return Pool.query(
+    `SELECT * FROM customer ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`
+  );
+};
 
-const selectCustomer = (id) => {
-    return Pool.query(`SELECT * FROM customer WHERE id = ${id}`)
-}
+//GET SELECT customer
+const selectCustomer = (customer_id) => {
+  return Pool.query(`SELECT * FROM customer WHERE customer_id = '${customer_id}'`);
+};
 
-const insertCustomer = (data) => {
-    const { id, name, email, phone_number, gender, dateofbirth} = data;
-    return Pool.query(`INSERT INTO customer(id, name, email, phone_number, gender, dateofbirth) VALUES
-    (${id},'${name}','${email}',${phone_number},'${gender}', '${dateofbirth}')`);
-}
+//DELETE SELECT customer
+const deleteCustomer = (customer_id) => {
+  return Pool.query(`DELETE FROM customer WHERE customer_id = '${customer_id}'`);
+};
 
+//POST customer
+const createCustomer = (data) => {
+  const {
+    customer_id,
+    customer_name,
+    customer_email,
+    customer_password,
+    customer_confirmpasswordHash
+  } = data;
+  return Pool.query(`INSERT INTO customer(
+    customer_id,
+    customer_name,
+    customer_email,
+    customer_password,
+    customer_confirmpassword
+    ) 
+    VALUES (
+      '${customer_id}',
+      '${customer_name}',
+      '${customer_email}',
+      '${customer_password}',
+      '${customer_confirmpasswordHash}')`);
+};
+
+//PUT SELECT customer
 const updateCustomer = (data) => {
-    const { id, name, email, phone_number, gender, dateofbirth} = data;
-    return Pool.query(`UPDATE customer SET name='${name}', email='${email}', phone_number=${phone_number}, gender='${gender}', dateofbirth='${dateofbirth}' WHERE id=${id}`);
-}
+  const { customer_id, customer_name, customer_email, customer_phone, customer_gender, customer_birth, customer_image } = data;
+  return Pool.query(
+    `UPDATE customer SET customer_name = '${customer_name}', customer_email = '${customer_email}', customer_phone = '${customer_phone}', customer_gender = '${customer_gender}', customer_birth = '${customer_birth}', customer_image = '${customer_image}' WHERE customer_id = '${customer_id}'`
+  );
+};
 
-const deleteCustomer = (id) => {
-        return Pool.query(`DELETE FROM customer WHERE id=${id}`);
-}
-
-const countData = () =>{
-    return Pool.query('SELECT COUNT(*) FROM customer')
-  }
-
-const findId =(id) => {
-    return  new Promise ((resolve,reject)=> 
-    Pool.query(`SELECT id FROM customer WHERE id=${id}`,(error,result)=>{
-      if(!error){
-        resolve(result)
-      }else{
-        reject(error)
+//FIND CUSTOMER
+const findCustomerByID = (customer_id) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `SELECT * FROM customer WHERE customer_id = '${customer_id}' `,
+      (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          reject(error);
+        }
       }
-    })
     )
-}
+  );
+};
 
-// const findName =(name) => {
-//   return  new Promise ((resolve,reject)=> 
-//   Pool.query(`SELECT * FROM product WHERE name='${name}'`,(error,result)=>{
-//     if(!error){
-//       resolve(result)
-//     }else{
-//       reject(error)
-//     }
-//   })
-//   )
-// }
+const findUUID = (customer_id) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `SELECT * FROM customer WHERE customer_id = '${customer_id}' `,
+      (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          reject(error);
+        }
+      }
+    )
+  );
+};
 
 
-// const searchProduct = (keyword, search) => {
-//   return Pool.query(`SELECT * FROM product WHERE ${keyword} = ${search}`)
-// }
+const findCustomerByEmail = (customer_email) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `SELECT * FROM customer WHERE customer_email = '${customer_email}' `,
+      (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          reject(error);
+        }
+      }
+    )
+  );
+};
 
-// ILIKE '%${search}%'
+//COUNT DATA
+const countData = () => {
+  return Pool.query(`SELECT COUNT(*) FROM customer`);
+};
 
 module.exports = {
-    selectAllCustomer,
-    selectCustomer,
-    insertCustomer,
-    updateCustomer,
-    deleteCustomer,
-    countData,
-    findId,
-    // searchCustomer,
-    // findName
-}
+  selectAllCustomers,
+  selectCustomer,
+  deleteCustomer,
+  createCustomer,
+  updateCustomer,
+  findCustomerByID,
+  findCustomerByEmail,
+  findUUID,
+  countData,
+};
