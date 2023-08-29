@@ -7,7 +7,7 @@
   <p align="center">
     <a href="https://github.com/vineas/backend-expressjs-blanja_project"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://blanja-react-tawny.vercel.app/">View Demo</a>
+    <a href="https://blanja-react-beginner.vercel.app">View Demo</a>
     ·
     <a href="https://backend-expressjs-blanja-project.vercel.app/">Api Demo</a>
   </p>
@@ -98,14 +98,14 @@ Documentation files are provided in the [docs](./docs) folder
 
 API endpoint list are also available as published postman documentation
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/27925772/2s9Y5ZwMy5)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/27926114/2s9Y5ZwNVy)
 
 ## Related Project
 
 :rocket: [`Backend Blanja`](https://github.com/vineas/backend-expressjs-blanja_project)
 
-:rocket: [`Frontend Blanja`](https://github.com/vineas/blanja-web)
+:rocket: [`Frontend Blanja`](https://github.com/vineas/blanja-react_beginner)
 
-:rocket: [`Demo Blanja`](https://vercel.com/vineas/blanja-fe)
+:rocket: [`Demo Blanja`](https://blanja-react-beginner.vercel.app)
 
 Project link : [https://github.com/vineas/backend-expressjs-blanja_project](https://github.com/vineas/backend-blanja-web)
