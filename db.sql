@@ -23,19 +23,39 @@ create table seller(
 )
 
 CREATE TABLE category(
-category_id VARCHAR not null primary key,
+category_id INT primary key,
 category_name VARCHAR not null,
-product_id VARCHAR primary key,
 );
+-- product_id VARCHAR primary key,
 
 CREATE TABLE orders(
-order_id int primary key not null,
-order_address text not null,
+order_id VARCHAR primary key not null,
 order_quantity int not null,
-order_shipping varchar(255) not null,
 total_price int not null,
+payment_id INT,
+address_id VARCHAR,
 product_id VARCHAR,
 customer_id VARCHAR
+);
+order_shipping varchar(255) not null,
+order_address text not null,
+
+
+CREATE TABLE payment(
+payment_id INT primary key,
+payment_name VARCHAR not null,
+);
+
+
+CREATE TABLE address (
+    address_id VARCHAR PRIMARY KEY,
+    address_as VARCHAR,
+    recipient_name VARCHAR,
+    recipient_phone VARCHAR(15),
+    address_line TEXT,
+    postal_code VARCHAR(10),
+    city_or_subdistrict VARCHAR,
+    customer_id VARCHAR
 );
 
 
@@ -46,14 +66,9 @@ product_price INT not null,
 product_stock INT not null,
 product_image VARCHAR not null,
 description_product TEXT not null,
-category_id VARCHAR,
+category_id INT,
 seller_id VARCHAR 
 );
--- nama_toko VARCHAR not null,
--- category_id int not null,
--- FOREIGN KEY (category_id) REFERENCES category(id)
-
-
 
 
 create type rating as enum('1','2','3','4','5')

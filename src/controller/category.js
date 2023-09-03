@@ -13,7 +13,7 @@ const commonHelper = require("../helper/common");
 let categoryController = {
   getAllCategory: async (req, res) => {
     try {
-      const sortby = req.query.sortby || "name";
+      const sortby = req.query.sortby || "category_name";
       const sort = req.query.sort || "ASC";
       const search = req.query.search || "";
       const result = await selectAllCategory(sortby, sort, search);
@@ -34,13 +34,13 @@ let categoryController = {
   },
 
   getDetailCategory: async (req, res) => {
-    const id = Number(req.params.id);
-    const { rowCount } = await findId(id);
+    const category_id = Number(req.params.id);
+    const { rowCount } = await findId(category_id);
     if (!rowCount) {
       return res.json({ message: "ID is Not Found" });
     }
     // res.send("ada");
-    selectCategory(id)
+    selectCategory(category_id)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "get data success");
       })
@@ -48,15 +48,15 @@ let categoryController = {
   },
 
   createCategory: async (req, res) => {
-    const { image, name } =
+    const { category_name } =
       req.body;
     const {
       rows: [count],
     } = await countData();
-    const id = Number(count.count) + 1;
+    const category_id = Number(count.count) + 1;
     const data = {
-      id,
-      image, name
+      category_id,
+      category_name
     };
     insertCategory(data)
       .then((result) =>
@@ -67,15 +67,14 @@ let categoryController = {
 
   updateCategory: async (req, res) => {
     try {
-      const id = Number(req.params.id);
-      const { image, name } = req.body;
-      const { rowCount } = await findId(id);
+      const category_id = Number(req.params.id);
+      const { name } = req.body;
+      const { rowCount } = await findId(category_id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
       }
       const data = {
-        id,
-        image,
+        category_id,
         name
       };
       updateCategory(data)
@@ -89,12 +88,12 @@ let categoryController = {
   },
   deleteCategory: async (req, res) => {
     try {
-      const id = Number(req.params.id);
-      const { rowCount } = await findId(id);
+      const category_id = Number(req.params.id);
+      const { rowCount } = await findId(category_id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
       }
-      deleteCategory(id)
+      deleteCategory(category_id)
         .then((result) =>
           commonHelper.response(res, result.rows, 200, "Product deleted")
         )

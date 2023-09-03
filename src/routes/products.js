@@ -7,6 +7,7 @@ const {hitCacheProductDetail,clearCacheProductDetail} = require('../middleware/r
 
 router
   .get("/", productController.getAllProduct)
+  .get("/profile/:seller_id", productController.getProductBySellerId)
   .get("/search", productController.getSearchProduct)
   .get("/:id", productController.getDetailProduct)
   .post("/",  upload, productController.createProduct)

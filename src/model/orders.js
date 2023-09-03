@@ -4,41 +4,65 @@ const selectAllOrders = (sortby, sort) => {
   return Pool.query(`SELECT * FROM orders ORDER BY ${sortby} ${sort}`);
 };
 
-const selectOrders = (id) => {
+const selectOrders = (order_id) => {
   return Pool.query(
-    `SELECT orders.*, product.name AS nama_product, users.fullname AS pembeli 
-    FROM orders join product ON orders.id_product = product.id
-    JOIN users ON orders.id_users = users.id WHERE orders.id = ${id}`
+    `SELECT orders.*, product.product_name , customer.customer_name
+    FROM orders join product ON orders.product_id = product.id
+    JOIN customer ON orders.customer_id = customer.customer_id WHERE orders.order_id = ${order_id}`
   );
 };
 
-// const selectOrders = (id) => {
-//     return Pool.query(`SELECT * FROM orders WHERE id = ${id}`)
-// }
+const selectOrdersByCustomerId = (customer_id) => {
+  return Pool.query(`SELECT *FROM orders LEFT JOIN customer ON orders.customer_id = customer.customer_id WHERE orders.customer_id='${customer_id}'`);
+};
 
 const insertOrders = (data) => {
-  const { id, address_order, quantity, shipping, total_price, id_product, id_users} = data;
-  return Pool.query(`INSERT INTO orders(id,
-        address_order ,
-        quantity ,
-        shipping ,
-        total_price,
-        id_product,
-        id_users) VALUES
-    (${id}, '${address_order}', ${quantity}, '${shipping}', ${total_price}, ${id_product}, '${id_users}')`);
+  const { 
+    order_id,
+    order_quantity,
+    total_price,
+    payment_id,
+    address_id,
+    product_id,
+    customer_id } = data;
+  return Pool.query(`INSERT INTO orders(
+    order_id,
+    order_quantity,
+    total_price,
+    payment_id,
+    address_id,
+    product_id,
+    customer_id
+    ) VALUES
+    ('${order_id}',${order_quantity}, ${total_price}, ${payment_id}, '${address_id}', '${product_id}', '${customer_id}')`);
 };
 
 const updateOrders = (data) => {
-  const {id, date , address_order, quantity, shipping, total_price,id_product,id_customer,} = data;
+  const { id, date, address_order, quantity, shipping, total_price, id_product, id_customer, } = data;
   return Pool.query(`UPDATE orders SET date ='${date}', address_order='${address_order}',quantity = ${quantity} ,shipping = '${shipping}', total_price = ${total_price}, id_product = ${id_product}, id_customer = ${id_customer} WHERE id=${id}`);
 };
 
-const deleteOrders = (id) => {
-  return Pool.query(`DELETE FROM orders WHERE id=${id}`);
+const deleteOrders = (order_id) => {
+  return Pool.query(`DELETE FROM orders WHERE order_id=${order_id}`);
 };
 
 const countData = () => {
   return Pool.query("SELECT COUNT(*) FROM orders");
+};
+
+const findUUID = (order_id) => {
+  return new Promise((resolve, reject) =>
+      Pool.query(
+          `SELECT orders FROM orders WHERE order_id='${order_id}'`,
+          (error, result) => {
+              if (!error) {
+                  resolve(result);
+              } else {
+                  reject(error);
+              }
+          }
+      )
+  );
 };
 
 const findId = (id) => {
@@ -61,4 +85,6 @@ module.exports = {
   deleteOrders,
   countData,
   findId,
+  findUUID,
+  selectOrdersByCustomerId
 };
