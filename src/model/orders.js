@@ -8,33 +8,35 @@ const selectOrders = (order_id) => {
   return Pool.query(
     `SELECT orders.*, product.product_name , customer.customer_name
     FROM orders join product ON orders.product_id = product.id
-    JOIN customer ON orders.customer_id = customer.customer_id WHERE orders.order_id = ${order_id}`
+    JOIN customer ON orders.customer_id = customer.customer_id WHERE orders.order_id = '${order_id}'`
   );
 };
 
 const selectOrdersByCustomerId = (customer_id) => {
-  return Pool.query(`SELECT *FROM orders LEFT JOIN customer ON orders.customer_id = customer.customer_id WHERE orders.customer_id='${customer_id}'`);
+  return Pool.query(`SELECT orders.*, orders.product_id, payment.payment_name, product.product_name, product.product_image, product.product_price, customer.customer_name
+  FROM orders
+  LEFT JOIN payment ON orders.payment_id = payment.payment_id
+  LEFT JOIN product ON orders.product_id = product.product_id
+  LEFT JOIN customer ON orders.customer_id = customer.customer_id
+  WHERE orders.customer_id = '${customer_id}';`);
 };
 
 const insertOrders = (data) => {
   const { 
     order_id,
     order_quantity,
-    total_price,
-    payment_id,
-    address_id,
+    // total_price,
+    // payment_id,
+    // address_id,
     product_id,
     customer_id } = data;
   return Pool.query(`INSERT INTO orders(
     order_id,
     order_quantity,
-    total_price,
-    payment_id,
-    address_id,
     product_id,
     customer_id
     ) VALUES
-    ('${order_id}',${order_quantity}, ${total_price}, ${payment_id}, '${address_id}', '${product_id}', '${customer_id}')`);
+    ('${order_id}',${order_quantity}, '${product_id}', '${customer_id}')`);
 };
 
 const updateOrders = (data) => {
@@ -43,7 +45,7 @@ const updateOrders = (data) => {
 };
 
 const deleteOrders = (order_id) => {
-  return Pool.query(`DELETE FROM orders WHERE order_id=${order_id}`);
+  return Pool.query(`DELETE FROM orders WHERE order_id='${order_id}'`);
 };
 
 const countData = () => {

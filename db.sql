@@ -30,8 +30,8 @@ category_name VARCHAR not null,
 
 CREATE TABLE orders(
 order_id VARCHAR primary key not null,
-order_quantity int not null,
-total_price int not null,
+order_quantity int,
+total_price int,
 payment_id INT,
 address_id VARCHAR,
 product_id VARCHAR,

@@ -7,7 +7,8 @@ let {
   deleteOrders,
   countData,
   findUUID,
-  findId
+  findId,
+  selectOrdersByCustomerId
 } = require("../model/orders");
 const commonHelper = require("../helper/common");
 
@@ -24,24 +25,31 @@ let ordersController = {
   },
 
   getDetailOrders: async (req, res) => {
-    const id = Number(req.params.id);
-    const { rowCount } = await findId(id);
+    const order_id = Number(req.params.id);
+    const { rowCount } = await findUUID(order_id);
     if (!rowCount) {
       return res.json({ message: "ID is Not Found" });
     }
-    selectOrders(id)
+    selectOrders(order_id)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "get data success");
       })
       .catch((err) => res.send(err));
   },
 
+  getOrderByCustomerId: (req, res, next) => {
+    const customer_id = String(req.params.customer_id);
+    selectOrdersByCustomerId(customer_id)
+      .then((result) =>
+        commonHelper.response(res, result.rows, 200, "get data success")
+      )
+      .catch((err) => res.send(err));
+  },
+
   createOrders: async (req, res) => {
     const {
       order_quantity,
-      total_price,
-      payment_id,
-      address_id,
+      // total_price,
       product_id,
       customer_id
     } = req.body;
@@ -52,17 +60,14 @@ let ordersController = {
     // const id = Number(count.count) + 1;
     const data = {
       order_id,
-      order_id,
       order_quantity,
-      total_price,
-      payment_id,
-      address_id,
+      // total_price,
       product_id,
       customer_id
     };
     insertOrders(data)
       .then((result) =>
-        commonHelper.response(res, result.rows, 201, "Product created")
+        commonHelper.response(res, result.rows, 201, "Order created")
       )
       .catch((err) => res.send(err));
   },
@@ -103,20 +108,18 @@ let ordersController = {
       console.log(error);
     }
   },
-  deleteOrders: async (req, res) => {
+  
+  deleteOrderById: async (req, res, next) => {
     try {
-      const order_id = Number(req.params.order_id);
+      const order_id = String(req.params.id);
       const { rowCount } = await findUUID(order_id);
       if (!rowCount) {
-        res.json({ message: "ID is Not Found" });
+        return next(createError(403, "ID is Not Found"));
       }
-      deleteOrders(order_id)
-        .then((result) =>
-          commonHelper.response(res, result.rows, 200, "Product deleted")
-        )
-        .catch((err) => res.send(err));
+      await deleteOrders(order_id);
+      commonHelper.response(res, {}, 200, "Order terhapus");
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   },
   // getSearchProduct: async (req, res) => {

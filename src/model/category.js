@@ -5,7 +5,7 @@ const selectAllCategory = (sortby, sort) => {
 }
 
 const selectCategory = (category_id) => {
-    return Pool.query(`SELECT product.product_name, product.product_price, category.category_name AS kategori FROM product join category ON product.category_id = category.category_id WHERE category.category_id = ${category_id}`)
+    return Pool.query(`SELECT product.product_name, product.product_price,product.product_image, category.category_name AS kategori FROM product join category ON product.category_id = category.category_id WHERE category.category_id = ${category_id}`)
 }
 
 const insertCategory = (data) => {

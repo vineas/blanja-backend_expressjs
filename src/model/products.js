@@ -12,7 +12,7 @@ const selectProduct = (product_id) => {
 }
 
 const selectProductBySellerId = (seller_id) => {
-  return Pool.query(`SELECT *FROM product LEFT JOIN seller ON product.seller_id = seller.seller_id WHERE product.seller_id='${seller_id}'`);
+  return Pool.query(`SELECT * FROM product LEFT JOIN seller ON product.seller_id = seller.seller_id WHERE product.seller_id='${seller_id}'`);
 };
 
 const insertProduct = (data) => {
