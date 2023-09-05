@@ -13,7 +13,8 @@ const selectOrders = (order_id) => {
 };
 
 const selectOrdersByCustomerId = (customer_id) => {
-  return Pool.query(`SELECT orders.*, orders.product_id, payment.payment_name, product.product_name, product.product_image, product.product_price, customer.customer_name
+  return Pool.query(`SELECT orders.*, orders.product_id, payment.payment_name, product.product_name, product.product_image, product.product_price, customer.customer_name,
+    (product.product_price * orders.order_quantity) AS total_price
   FROM orders
   LEFT JOIN payment ON orders.payment_id = payment.payment_id
   LEFT JOIN product ON orders.product_id = product.product_id
@@ -21,23 +22,23 @@ const selectOrdersByCustomerId = (customer_id) => {
   WHERE orders.customer_id = '${customer_id}';`);
 };
 
-const insertOrders = (data) => {
-  const { 
-    order_id,
-    order_quantity,
-    // total_price,
-    // payment_id,
-    // address_id,
-    product_id,
-    customer_id } = data;
-  return Pool.query(`INSERT INTO orders(
-    order_id,
-    order_quantity,
-    product_id,
-    customer_id
-    ) VALUES
-    ('${order_id}',${order_quantity}, '${product_id}', '${customer_id}')`);
-};
+  const insertOrders = (data) => {
+    const { 
+      order_id,
+      order_quantity,
+      // total_price,
+      // payment_id,
+      // address_id,
+      product_id,
+      customer_id } = data;
+    return Pool.query(`INSERT INTO orders(
+      order_id,
+      order_quantity,
+      product_id,
+      customer_id
+      ) VALUES
+      ('${order_id}',${order_quantity}, '${product_id}', '${customer_id}')`);
+  };
 
 const updateOrders = (data) => {
   const { id, date, address_order, quantity, shipping, total_price, id_product, id_customer, } = data;
