@@ -5,7 +5,7 @@
   </div>
   <h3 align="center">Blanja</h3>
   <p align="center">
-    <a href="https://github.com/vineas/backend-expressjs-blanja_project"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/vineas/blanja-backend_expressjs"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://blanja-react-beginner.vercel.app">View Demo</a>
     ·
@@ -47,7 +47,7 @@ These are the libraries and service used for building this backend API
 1. Clone this repository
 
 ```sh
-git clone https://github.com/vineas/backend-expressjs-blanja_project
+git clone https://github.com/vineas/blanja-backend_expressjs
 ```
 
 2. Change directory to blanja-web
@@ -102,10 +102,10 @@ API endpoint list are also available as published postman documentation
 
 ## Related Project
 
-:rocket: [`Backend Blanja`](https://github.com/vineas/backend-expressjs-blanja_project)
+:rocket: [`Backend Blanja`](https://github.com/vineas/blanja-backend_expressjs)
 
-:rocket: [`Frontend Blanja`](https://github.com/vineas/blanja-react_beginner)
+:rocket: [`Frontend Blanja`](https://github.com/vineas/blanja-frontend_react)
 
 :rocket: [`Demo Blanja`](https://blanja-react-beginner.vercel.app)
 
-Project link : [https://github.com/vineas/backend-expressjs-blanja_project](https://github.com/vineas/backend-blanja-web)
+Project link : [https://github.com/vineas/blanja-backend_expressjs](https://github.com/vineas/blanja-backend_expressjs)
