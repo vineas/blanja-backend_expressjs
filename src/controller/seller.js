@@ -137,7 +137,7 @@ let sellerController = {
                 seller_storename: Joi.string().required(),
                 seller_email: Joi.string().required(),
                 seller_phone: Joi.string().min(10).max(12),
-                seller_storename: Joi.string().required()
+                seller_description: Joi.string().required()
 
             });
             const { error, value } = schema.validate(req.body, {

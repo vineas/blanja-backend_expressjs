@@ -66,14 +66,13 @@ const createSeller = (data) => {
 const updateSeller = (data) => {
   const {     
     seller_id,
-    seller_name,
     seller_email,
     seller_phone,
     seller_storename,
     seller_description,
     seller_image } = data;
   return Pool.query(
-    `UPDATE seller SET seller_name = '${seller_name}', seller_image = '${seller_image}', seller_email = '${seller_email}', seller_phone = ${seller_phone}, seller_storename = '${seller_storename}', seller_description = '${seller_description}' WHERE seller_id = '${seller_id}'`
+    `UPDATE seller SET seller_email = '${seller_email}', seller_phone = '${seller_phone}', seller_storename = '${seller_storename}', seller_description = '${seller_description}',seller_image = '${seller_image}' WHERE seller_id = '${seller_id}'`
   );
 };
 
