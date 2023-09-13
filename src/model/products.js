@@ -23,7 +23,14 @@ const insertProduct = (data) => {
 
 const updateProduct = (data) => {
   const { product_id, product_name, product_price, product_stock, product_image, description_product, category_id} = data;
-  return Pool.query(`UPDATE product SET product_name='${product_name}', product_price=${product_price}, product_stock=${product_stock}, product_image ='${product_image}', description_product='${description_product}', category_id=${category_id} WHERE product_id='${product_id}'`);
+  return Pool.query(`UPDATE product SET 
+  product_name='${product_name}', 
+  product_price=${product_price}, 
+  product_stock=${product_stock}, 
+  product_image ='${product_image}', 
+  description_product='${description_product}', 
+  category_id=${category_id} 
+  WHERE product_id='${product_id}'`);
 }
 
 

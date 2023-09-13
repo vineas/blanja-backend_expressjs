@@ -122,9 +122,9 @@ let sellerController = {
     editSeller: async (req, res) => {
         try {
             const {
-                seller_storename,
                 seller_email,
                 seller_phone,
+                seller_storename,
                 seller_description,
             } = req.body;
             const seller_id = String(req.params.id);
@@ -153,18 +153,22 @@ let sellerController = {
                 seller_image = result.secure_url;
             }
             const data = {
-                seller_image,
-                seller_storename,
+                seller_id,
                 seller_email,
                 seller_phone,
-                seller_description
+                seller_storename,
+                seller_description,
+                seller_image
             };
 
             updateSeller(data)
                 .then((result) =>
                     commonHelper.response(res, result.rows, 200, "Update Sellers Success")
                 )
-                .catch((err) => res.send(err));
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).json({ message: "Internal Server Error" });
+                  });
         } catch (error) {
             console.log(error);
         }
