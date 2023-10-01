@@ -76,8 +76,8 @@ const findSellerId = (seller_id) => {
   );
 };
 
-const searchProduct = (name) => {
-  return Pool.query(`SELECT * FROM product WHERE name ILIKE '%${name}%'`)
+const searchProduct = (product_name) => {
+  return Pool.query(`SELECT * FROM product WHERE product_name ILIKE '%${product_name}%'`)
 }
 
 module.exports = {
