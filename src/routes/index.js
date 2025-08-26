@@ -1,13 +1,14 @@
-const express = require("express");
+import express from "express";
+import productRouter from "../routes/products.js";
+import addressRouter from "../routes/address.js";
+import categoryRouter from "../routes/category.js";
+import paymentRouter from "../routes/payment.js";
+import customerRouter from "../routes/customer.js";
+import sellerRouter from "../routes/seller.js";
+import ordersRouter from "../routes/orders.js";
+import usersRouter from "../routes/users.js";
+
 const router = express.Router();
-const productRouter = require('../routes/products')
-const addressRouter = require('../routes/address')
-const categoryRouter = require('../routes/category')
-const paymentRouter = require('../routes/payment')
-const customerRouter = require('../routes/customer')
-const sellerRouter = require('../routes/seller')
-const ordersRouter = require('../routes/orders')
-const usersRouter = require('../routes/users')
 
 router.use('/products', productRouter);
 router.use('/address', addressRouter);
@@ -18,4 +19,4 @@ router.use('/seller', sellerRouter);
 router.use('/orders', ordersRouter);
 router.use('/users', usersRouter);
 
-module.exports = router;
+export default router;
