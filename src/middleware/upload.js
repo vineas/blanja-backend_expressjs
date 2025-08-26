@@ -1,4 +1,4 @@
-const multer = require('multer');
+import multer from 'multer';
 // const { failed } = require('../helper/common');
 // manajemen file
 const multerUpload = multer({
@@ -39,4 +39,4 @@ const upload = (req, res, next) => {
   });
 };
 
-module.exports = upload;
+export default upload;

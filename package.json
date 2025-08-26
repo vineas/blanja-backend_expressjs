@@ -2,6 +2,7 @@
   "name": "backend_project_blanja",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "engines": {
     "node": "22.x"
